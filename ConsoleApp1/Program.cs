@@ -3,15 +3,16 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace WebAPIClient
 {
     class Program
     {
         private static readonly HttpClient client = new HttpClient();
-
         private static string website = "https://dev.by";
-        private static string path = "C:\\Users\\k.bulyshkin\\Desktop\\test.txt";
+        private static string baseFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        private static string fullPath = Path.Combine(baseFolder, "ConsoleApp1_log.txt");
 
         static async Task Main(string[] args)
         {
@@ -29,7 +30,7 @@ namespace WebAPIClient
                 sw.Stop();
                 var msg = $"Response time of the requested website '{website}' is {sw.ElapsedMilliseconds}";
 
-                StreamWriter wrtiter = new StreamWriter(path, true);
+                StreamWriter wrtiter = new StreamWriter(fullPath, true);
                 wrtiter.WriteLine(msg);
                 wrtiter.Close();
 
