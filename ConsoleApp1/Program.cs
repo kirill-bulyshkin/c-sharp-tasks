@@ -16,6 +16,7 @@ namespace WebAPIClient
 
         static async Task Main(string[] args)
         {
+            File.WriteAllText(fullPath, "");
             var anInstanceofProgramClass = new Program();
             await anInstanceofProgramClass.showAsyncTime(website);
         }
