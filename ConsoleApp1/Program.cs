@@ -10,18 +10,22 @@ namespace WebAPIClient
     class Program
     {
         private static readonly HttpClient client = new HttpClient();
-        private static string website = "https://dev.by";
+        private static string website = "https://dev.by/";
+        private static int timeoutValue = 1000;
         private static string baseFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         private static string fullPath = Path.Combine(baseFolder, "ConsoleApp1_log.txt");
 
         static async Task Main(string[] args)
         {
             File.WriteAllText(fullPath, "");
-            var anInstanceofProgramClass = new Program();
-            await anInstanceofProgramClass.showAsyncTime(website);
+
+            var task1 = showAsyncTimeOfResponse(website, timeoutValue);
+            var task2 = showAsyncTimeOfResponse(website, timeoutValue);
+
+            await Task.WhenAny(task1, task2);
         }
 
-        public async Task showAsyncTime(string url)
+        static async Task showAsyncTimeOfResponse(string url, int timeoutValue)
         {
             while (true)
             {
@@ -37,8 +41,10 @@ namespace WebAPIClient
 
                 Console.WriteLine(msg);
 
-                Thread.Sleep(1000);
+                Thread.Sleep(timeoutValue);
+
             }
+
         }
 
     }
