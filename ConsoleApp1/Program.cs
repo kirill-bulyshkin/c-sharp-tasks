@@ -27,9 +27,9 @@ namespace WebAPIClient
 
         static async Task showAsyncTimeOfResponse(string url, int timeoutValue)
         {
+            var sw = new Stopwatch();
             while (true)
             {
-                var sw = new Stopwatch();
                 sw.Restart();
                 await client.GetStringAsync(url);
                 sw.Stop();
@@ -42,7 +42,6 @@ namespace WebAPIClient
                 Console.WriteLine(msg);
 
                 Thread.Sleep(timeoutValue);
-
             }
 
         }
